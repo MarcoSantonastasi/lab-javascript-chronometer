@@ -10,13 +10,13 @@ class Watch extends Chronometer {
         this.secUni = document.getElementById('secUni');
         this.milDec = document.getElementById('milDec');
         this.milUni = document.getElementById('milUni');
-        this.Splits = document.getElementById('Splits');
+        this.splits = document.getElementById('splits');
 
         // Start/Stop Button
         this.btnLeft.addEventListener('click', () => {
             if (this.btnLeft.classList.replace("start", "stop")) {
                 this.startClick();
-                this.printTimeIntervalId = setInterval(() => { this.printTime(), 1});
+                this.printTimeIntervalId = setInterval(() => { this.printTime(), 10 });
                 this.btnLeft.innerText = "STOP";
                 this.btnRight.classList.replace("reset", "split");
                 this.btnRight.innerText = "SPLIT";
@@ -35,6 +35,7 @@ class Watch extends Chronometer {
             if (this.btnRight.classList.contains("reset")) {
                 this.resetClick();
                 this.printTime();
+                this.clearSplits();
             }
             if (this.btnRight.classList.contains("split")) {
                 this.splitClick();
@@ -45,7 +46,7 @@ class Watch extends Chronometer {
     }
 
     printTime() {
-        this.printMilliseconds();
+        this.printSubseconds();
         this.printSeconds();
         this.printMinutes();
     }
@@ -60,39 +61,36 @@ class Watch extends Chronometer {
     printSeconds() {
         const secs = this.getSeconds();
         this.secUni.innerText = secs[1];
-        this.minDec.innerText = secs[0];
+        this.secDec.innerText = secs[0];
 
     }
 
-    printMilliseconds() {
-        const mills = this.getMillisecs();
+    printSubseconds() {
+        const mills = this.getSubsecs();
         this.milUni.innerText = mills[1];
         this.milDec.innerText = mills[0];
 
     }
 
     printSplit() {
-
+        if (!this.splitsList) return;
+        const timeString = this.splitsList.pop()
+        const node = document.createElement("LI");
+        const textnode = document.createTextNode(timeString);
+        node.appendChild(textnode);
+        this.splits.appendChild(node)
     }
 
     clearSplits() {
-
+        this.splits.innerHTML = "";
     }
 
-    setStopBtn() {
+    setStopBtn() {}
 
-    }
+    setSplitBtn() {}
 
-    setSplitBtn() {
+    setStartBtn() {}
 
-    }
-
-    setStartBtn() {
-
-    }
-
-    setResetBtn() {
-
-    }
+    setResetBtn() {}
 
 }
