@@ -4,31 +4,36 @@ class Chronometer {
     this.intervalId = undefined;
   }
 
-  startClick(ticktack) {  
-    this.setIntervalId = setInterval(() => this.currentTime++, ticktack);
+  startClick() {  
+    this.setIntervalId = setInterval(() => this.currentTime++, 1);
   }
 
   getMinutes() {
-    return parseInt(this.currentTime/60).toString();
+    return this.twoDigitsNumber(parseInt(this.currentTime/1000/60));
   }
 
   getSeconds() {
-    return parseInt(this.currentTime%60).toString();
+    return this.twoDigitsNumber(parseInt(this.currentTime/1000));
   }
 
   getMillisecs() {
-    return parseInt(this.currentTime%60).toString()
+    return this.twoDigitsNumber((this.currentTime));
   }
 
-  twoDigitsNumber(numberString) {
-    if (numberString.length < 2) return "0" + numberString; 
+  twoDigitsNumber(number) {
+    if (number.toString().length < 2) return "0" + number;
+    else return "" + number;
   }
   
-  stopClick() {}
+  stopClick() {
+    clearInterval(this.intervalId)
+  }
   
   resetClick() {
     this.currentTime = 0;
   }
   
-  splitClick() {}
+  splitClick() {
+    return this.currentTime;
+  }
 }
