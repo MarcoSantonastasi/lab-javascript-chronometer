@@ -37,6 +37,6 @@ class Chronometer {
   }
   
   splitClick() {
-    this.splitsList.push(this.getMinutes() + ":" + this.getSeconds() + ":" + this.getSubsecs());
+    this.splitsList.push(this.getMinutes() + ":" + this.getSeconds() + "." + this.getSubsecs());
   }
 }
